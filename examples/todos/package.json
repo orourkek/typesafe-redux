@@ -5,11 +5,16 @@
   "dependencies": {
     "@types/jest": "24.0.11",
     "@types/node": "11.11.0",
-    "@types/react": "16.8.7",
+    "@types/react": "^16.8.7",
     "@types/react-dom": "16.8.2",
+    "@types/react-redux": "^7.0.3",
+    "@types/redux": "^3.6.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "typesafe-redux": "file:../..",
     "typescript": "3.3.3333"
   },
   "scripts": {
