@@ -34,7 +34,9 @@ interface ActionCreator<T extends string> extends ActionBuilder<T> {
 function isMatchableActionCreator<T extends string>(
   builder: ActionBuilder<T>
 ): builder is ActionCreator<T> {
-  return (typeof builder === 'function') && ('match' in builder);
+  return (
+    typeof builder === 'function' && 'match' in builder && 'type' in builder
+  );
 }
 
 /**
@@ -77,5 +79,5 @@ export function isActionFrom<
   T extends string,
   Builder extends ActionBuilder<T>
 >(action: BaseAction, creator: Builder): action is ReturnType<Builder> {
-  return isMatchableActionCreator(creator) && (creator.type === action.type);
+  return isMatchableActionCreator(creator) && creator.match(action);
 }
