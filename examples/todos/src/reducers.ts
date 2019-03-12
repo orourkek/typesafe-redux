@@ -12,22 +12,26 @@ export function todos(state: IAppState['todos'] = [], action: Action) {
   }
   if (isActionFrom(action, actions.editTodo)) {
     const index = state.findIndex((todo) => todo.id === action.payload.id);
-    if (index) {
+    if (index > -1) {
       return [
         ...state.slice(0, index),
         { ...state[index], text: action.payload.newText },
         ...state.slice(index + 1)
       ];
+    } else {
+      console.warn(`Failed to find todo "${action.payload.id}`);
     }
   }
   if (isActionFrom(action, actions.completeTodo)) {
     const index = state.findIndex((todo) => todo.id === action.payload);
-    if (index) {
+    if (index > -1) {
       return [
         ...state.slice(0, index),
-        { ...state[index], completed: true },
+        { ...state[index], completed: !state[index].completed },
         ...state.slice(index + 1)
       ];
+    } else {
+      console.warn(`Failed to find todo "${action.payload}`);
     }
   }
   if (isActionFrom(action, actions.completeAll)) {

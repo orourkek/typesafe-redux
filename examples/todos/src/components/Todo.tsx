@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { ITodo } from '../types';
 
-type Props = ITodo;
+interface Props extends ITodo {
+  complete: () => void;
+  destroy: () => void;
+}
 
 const Todo: React.FunctionComponent<Props> = (props) => {
-  const style = {
-    textDecoration: props.completed ? 'line-through' : undefined
-  };
+  const { completed, text, complete, destroy } = props;
+  const className = `todo ${completed ? 'completed' : ''}`;
   return (
-    <li style={ style }>
-      <strong>{ props.text }</strong>
+    <li className={ className }>
+      <span className='checkbox' onClick={ complete } />
+      <strong className='text'>{ text }</strong>
+      <button className='destroy' onClick={ destroy }>×</button>
     </li>
   );
 };

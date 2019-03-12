@@ -4,13 +4,32 @@ import Todo from './Todo';
 
 interface Props {
   todos: ITodo[];
+  completeTodo: (id: string) => void;
+  completeAll: () => void;
+  deleteTodo: (id: string) => void;
 }
 
-const TodoList: React.FunctionComponent<Props> = ({ todos }) => {
+const TodoList: React.FunctionComponent<Props> = (props) => {
+  const { todos, completeTodo, deleteTodo } = props;
+  if (!todos.length) {
+    return null;
+  }
   return (
-    <ul>
+    <ul className='todoList'>
       {todos.map((todo) =>
-        <Todo key={ todo.id } { ...todo } />
+        <Todo
+          key={ todo.id }
+          complete={ completeTodo.bind(completeTodo, todo.id) }
+          destroy={ deleteTodo.bind(deleteTodo, todo.id) }
+          { ...todo }
+        />
+      )}
+      {!!props.todos.length && (
+        <li>
+          <button className='completeAll' onClick={ props.completeAll }>
+            Complete All Todos
+          </button>
+        </li>
       )}
     </ul>
   );
