@@ -6,7 +6,7 @@ interface Meta {
   [k: string]: any;
 }
 
-interface Action<T extends string> extends BaseAction {
+export interface Action<T extends string> extends BaseAction {
   readonly type: T;
   readonly payload?: any;
   readonly meta?: Meta;
@@ -16,14 +16,14 @@ interface Action<T extends string> extends BaseAction {
 /**
  * Any function that generates an action-like object
  */
-interface ActionBuilder<T extends string> {
+export interface ActionBuilder<T extends string> {
   (...args: any[]): Action<T>;
 }
 
 /**
  * An action creator function produced by typesafe-redux
  */
-interface ActionCreator<T extends string> extends ActionBuilder<T> {
+export interface ActionCreator<T extends string> extends ActionBuilder<T> {
   type: T;
   match(action: BaseAction): action is Action<T>;
 }
