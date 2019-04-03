@@ -34,6 +34,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "tslint": "^5.13.1",
     "typescript": "^3.3.3333"
   }

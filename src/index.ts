@@ -81,3 +81,10 @@ export function isActionFrom<
 >(action: BaseAction, creator: Builder): action is ReturnType<Builder> {
   return isMatchableActionCreator(creator) && creator.match(action);
 }
+
+/**
+ * Helper for getting an interface for actions made by the given action creator
+ */
+export type ActionType<C> = C extends ActionBuilder<string> ?
+  ReturnType<C> : C extends Action<string> ?
+  C : never;
