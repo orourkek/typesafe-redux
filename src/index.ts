@@ -45,10 +45,9 @@ function isTRActionCreator<T extends string>(
  * Factory for custom AC that can accept any args and return any shape action
  *
  * Providing accurate & strong types around these kind of functions ended up
- * necessitating two layers of function calls which you'll see in the examples
- * below. First pass an action type, then add a generic type for the payload
- * (optional), then immediately call the result of that to get the frehsly
- * minted action creator.
+ * necessitating two layers of function calls. First an action type is passed,
+ * then a generic type for the payload is specified (optional), then call the
+ * result of that to get the frehsly minted action creator.
  *
  * Optional 2nd arg is a callback that receives back the action type and
  * should return a function that returns an action of that type, Allowing
@@ -61,30 +60,6 @@ function isTRActionCreator<T extends string>(
  *
  * Return types are explicitly asserted and have been carefully crafted to
  * maximize information & type safety.
- *
- * ```ts
- * import { actionCreator } from 'typesafe-redux';
- * // simple action without payload:
- * const logout = actionCreator('logout')();
- * dispatch(logout());
- *
- * // payload type can be passed as a generic between the function calls:
- * const showMsg = actionCreator('showMsg')<{ title: string; msg: string; }>();
- * const submitScore = actionCreator('submitScore')<number>();
- * dispatch(showMsg({ msg: 'hello world', title: 'this is a messgae' }));
- * dispatch(submitScore(100));
- *
- * // easily customize AC arguments by passing the optional callback:
- * const showError = actionCreator('showError', (type) => {
- *   return (msg: string, severity: number = 0, extra?: any) => ({
- *     type,
- *     timestamp: Date.now(),
- *     severity,
- *     extra,
- *   });
- * });
- * dispatch(showError('oops! something went wrong :(', 5));
- * ```
  */
 export function actionCreator<
   T extends string
