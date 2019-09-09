@@ -2,11 +2,11 @@ interface AnyAction {
   readonly type: any;
 }
 
-interface Meta {
+export interface Meta {
   [k: string]: any;
 }
 
-interface Action<T extends string> extends AnyAction {
+export interface Action<T extends string> extends AnyAction {
   readonly type: T;
   readonly payload?: any;
   readonly meta?: Meta;
@@ -16,7 +16,7 @@ interface Action<T extends string> extends AnyAction {
 /**
  * Any function (i.e. not from this pkg) that generates an action-like object
  */
-interface GenericActionCreator<T extends string> {
+export interface GenericActionCreator<T extends string> {
   (...args: any[]): Action<T>;
 }
 
@@ -25,7 +25,9 @@ interface GenericActionCreator<T extends string> {
  * a `match` method on its prototype for type guarding actions which provides
  * strong payload types in consumers of this action(s)
  */
-interface TRActionCreator<T extends string> extends GenericActionCreator<T> {
+export interface TRActionCreator<
+  T extends string
+> extends GenericActionCreator<T> {
   type: T;
   match(action: AnyAction): action is Action<T>;
 }
