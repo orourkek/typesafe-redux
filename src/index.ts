@@ -77,16 +77,18 @@ export function actionCreator<
   type: T,
   customCreatorCallback?: (type: T) => InnerCreator
 ) {
-  return Object.assign(
-    customCreatorCallback ?
-      customCreatorCallback(type) :
-      <P = void>(payload: P) => ({ type, payload }),
-    {
-      type,
-      match(action: AnyAction): action is ReturnType<InnerCreator> {
-        return action.type === this.type;
-      }
+  const typeAndMatcherFn = {
+    type,
+    match(action: AnyAction): action is ReturnType<InnerCreator> {
+      return action.type === this.type;
     }
+  };
+  if (customCreatorCallback) {
+    return Object.assign(customCreatorCallback(type), typeAndMatcherFn);
+  }
+  return <P = void>() => Object.assign(
+    (payload: P) => ({ type, payload }),
+    typeAndMatcherFn
   );
 }
 
